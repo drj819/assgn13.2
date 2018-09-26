@@ -1,0 +1,38 @@
+getwd()
+p='C:/Users/acd/Documents/COBRA-YTD2017.csv'
+setwd(p)
+list.files()
+list.dirs()
+COBRA_YTD2017<-read.csv('C:/Users/acd/Documents/COBRA-YTD2017.csv')
+require(Amelia)
+library(Rcpp)
+data<-COBRA_YTD2017
+data[4:10,3] <- rep(NA,7)
+data[1:5,4] <- NA
+data <- data[-c(5,6)]
+summary(data)
+pMiss <- function(x){sum(is.na(x))/length(x)*100}
+apply(data,2,pMiss)
+library(VIM)
+apply(m, 2, function(x) length(x[x<0]))
+apply(m, 2, function(x) is.matrix(x))
+apply(m, 2, is.vector)
+sapply(1:3, function(x) x^2)
+library(tidyverse)
+library(ggmap)
+library(knitr)
+str(COBRA_YTD2017)
+COBRA_YTD2017 %>%
+group_by(days, loc_type) %>%
+summarize(freq=n()) %>%
+ggplot(aes(reorder(days, -freq), freq)) +   
+geom_bar(aes(fill=loc_type), position="dodge", stat="identity", width=0.8, color="black") +
+xlab("Day of Week") +
+ylab("Frequency") +
+labs(fill="Crime Type") +
+ggtitle("Crime by Day of the Week")
+library(dplyr)
+library(data.table)
+library(ggplot2)
+at <- COBRA_YTD2017
+str(at)
